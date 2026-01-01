@@ -1,0 +1,18 @@
+{% extends 'qanda/base.html' %}
+
+{% block title %}Ask a Question - Q&A App{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Ask a Question</h2>
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="question_text" placeholder="What would you like to know?" required></textarea>
+        <button type="submit" class="btn btn-primary">Submit Question</button>
+    </form>
+</div>
+
+<div style="margin-top: 20px;">
+    <a href="{% url 'question_list' %}" class="btn">← Back to Questions</a>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'qanda/base.html' %}
+
+{% block title %}{{ question.text|truncatewords:10 }} - Q&A App{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Question</h2>
+    <div class="question-text" style="font-size: 20px; margin: 20px 0;">
+        {{ question.text }}
+    </div>
+    <div class="meta">
+        Posted {{ question.created_at|timesince }} ago
+    </div>
+</div>
+
+<div class="card">
+    <h3>Answers ({{ question.answers.count }})</h3>
+    
+    {% if question.answers.all %}
+        {% for answer in question.answers.all %}
+        <div class="answer">
+            <div>{{ answer.text }}</div>
+            <div class="meta" style="margin-top: 10px;">
+                Answered {{ answer.created_at|timesince }} ago
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p style="color: #666; padding: 20px 0;">No answers yet. Be the first to answer!</p>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h3>Your Answer</h3>
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="answer_text" placeholder="Write your answer here..." required></textarea>
+        <button type="submit" class="btn btn-primary">Submit Answer</button>
+    </form>
+</div>
+
+<div style="margin-top: 20px;">
+    <a href="{% url 'question_list' %}" class="btn">← Back to Questions</a>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'qanda/base.html' %}
+
+{% block title %}All Questions - Q&A App{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>All Questions</h2>
+    
+    {% if questions %}
+        {% for question in questions %}
+        <div class="question-item">
+            <div class="question-text">
+                <a href="{% url 'question_detail' question.pk %}" style="color: #2c3e50; text-decoration: none;">
+                    {{ question.text }}
+                </a>
+            </div>
+            <div class="meta">
+                <span class="answer-count">{{ question.answers.count }} answer{{ question.answers.count|pluralize }}</span>
+                • Posted {{ question.created_at|timesince }} ago
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p style="color: #666; text-align: center; padding: 40px 0;">
+            No questions yet. <a href="{% url 'ask_question' %}">Be the first to ask!</a>
+        </p>
+    {% endif %}
+</div>
+{% endblock %}

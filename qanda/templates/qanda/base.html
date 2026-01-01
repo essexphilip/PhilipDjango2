@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Q&A App{% endblock %}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            text-align: center;
+            font-size: 2em;
+        }
+        nav {
+            text-align: center;
+            margin-top: 15px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .messages {
+            margin-bottom: 20px;
+        }
+        .message {
+            padding: 12px 20px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #2980b9;
+        }
+        .btn-primary {
+            background: #3498db;
+        }
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            font-family: inherit;
+            margin-bottom: 10px;
+        }
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .question-item {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+        .question-item:last-child {
+            border-bottom: none;
+        }
+        .question-text {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .meta {
+            color: #666;
+            font-size: 14px;
+        }
+        .answer {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 3px solid #3498db;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .answer-count {
+            color: #3498db;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Q&A Application</h1>
+            <nav>
+                <a href="{% url 'question_list' %}">All Questions</a>
+                <a href="{% url 'ask_question' %}">Ask Question</a>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
